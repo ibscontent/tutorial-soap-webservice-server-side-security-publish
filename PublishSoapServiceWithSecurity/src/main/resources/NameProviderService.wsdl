@@ -1,0 +1,47 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://ws.example.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://ws.example.com/" targetNamespace="http://ws.example.com/">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ws.example.com/" version="1.0">
+            <xs:element name="GetNameRequest" type="tns:GetNameRequest"/>
+            <xs:element name="GetNameResponse" type="tns:GetNameResponse"/>
+            <xs:complexType name="GetNameRequest">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="arg0" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="GetNameResponse">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="return" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="GetNameResponse">
+        <wsdl:part element="tns:GetNameResponse" name="GetNameResponse"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="GetNameRequest">
+        <wsdl:part element="tns:GetNameRequest" name="GetNameRequest"> </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="serviceNamePort">
+        <wsdl:operation name="GetName">
+            <wsdl:input message="tns:GetNameRequest" name="GetNameRequest"> </wsdl:input>
+            <wsdl:output message="tns:GetNameResponse" name="GetNameResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="serviceNamePortSoap11" type="tns:serviceNamePort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="GetName">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="GetNameRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="GetNameResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="serviceNamePortService">
+        <wsdl:port binding="tns:serviceNamePortSoap11" name="serviceNamePortSoap11">
+            <soap:address location="http://localhost:8081/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
